@@ -17,25 +17,25 @@ white = (255, 255, 255)
 pygame.display.set_caption('Show Text')
  
 
- 
+tela.blit(fundo,(0,0))     
 while running:
-    tela.blit(fundo,(0,0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONUP:
             pos = pygame.mouse.get_pos()
             item = simpledialog.askstring("Space","Nome da Estrela:")
-            if item == None:
+            if item == "":
                 item = "desconhecido"+str(pos)
             estrelas[item]= pos
-            pygame.surface.Surface
-        for key, value in estrelas.items():
-            font = pygame.font.Font('freesansbold.ttf', 30)
-            text = font.render(key, True, white)
-            textRect = text.get_rect()
-            tela.blit(text, textRect)
-        
+            print(item)
+            for key, value in estrelas.items():
+                font = pygame.font.Font(None, 20)
+                text = font.render(item, True, white)
+                tela.blit(text, (pos))
+                pygame.draw.circle(tela, white, pos, 3.5)
+
+
        
         
     pygame.display.update()
