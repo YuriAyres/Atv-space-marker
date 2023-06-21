@@ -25,3 +25,18 @@ def sutrair_tupla(tupla):
     
     pos2 = (a,b)
     return pos2
+def medias_tuplas(dicionario,lista1,lista2):
+    tuplas = list(dicionario.values())
+    for i in range(len(tuplas)-1):
+        tupla_atual = tuplas[i]
+        proxima_tupla = tuplas[i+1]
+        x_atual, y_atual = tupla_atual
+        x_proximo, y_proximo = proxima_tupla
+        media_x = (x_atual + x_proximo) / 2
+        media_y = (y_atual + y_proximo) / 2
+        soma_medias = (media_x,media_y)
+        lista1.append(soma_medias)
+        resultado = (max(x_atual, x_proximo) - min(x_atual, x_proximo)) + (max(y_atual, y_proximo) - min(y_atual, y_proximo))
+        lista2.append(resultado)
+    
+

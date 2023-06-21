@@ -4,6 +4,7 @@ from tkinter import simpledialog
 from tkinter import messagebox
 from funcoes import analisar_tupla
 from funcoes import sutrair_tupla
+from funcoes import medias_tuplas
 pygame.init()
 tamanho = (1000,563)
 tela = pygame.display.set_mode(tamanho)
@@ -16,6 +17,8 @@ fundo = pygame.image.load("bg.jpg")
 pygame.mixer.music.load("Space_Machine_Power.mp3")
 pygame.mixer.music.play(-1)
 estrelas = {}
+medias = []
+dist_marcs = []
 nome_arquivo = "estrelas.pkl"
 start_pos = None
 white = (255, 255, 255)
@@ -57,6 +60,7 @@ while running:
                 else:
                     pos2 = sutrair_tupla(pos)
                     tela.blit(text, (pos2))
+                medias_tuplas(estrelas,medias,dist_marcs)
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_F10:
              with open(nome_arquivo, 'wb') as arquivo:
                 pickle.dump(estrelas, arquivo)
@@ -79,15 +83,16 @@ while running:
                             end_pos = value
                             pygame.draw.line(tela, white, start_pos, end_pos , 1)
                             start_pos = value
+                    medias_tuplas(estrelas,medias,dist_marcs)
+                    print(dist_marcs)
+                    print(medias)
             except:
                 messagebox.showinfo("Erro", "Não existem marcações salvas!")               
                
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_F12:
              with open(nome_arquivo, 'w') as arquivo:
                 pass
-        elif pygame.mouse.get_pos() == (500,300):
-            messagebox.showinfo("Distância entre as marcações", "Soma")    
-                         
+            
  
 
        
