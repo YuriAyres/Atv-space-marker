@@ -36,7 +36,7 @@ def medias_tuplas(dicionario,lista1,lista2):
         media_y = (y_atual + y_proximo) / 2
         soma_medias = (media_x,media_y)
         lista1.append(soma_medias)
-        resultado = (max(x_atual, x_proximo) - min(x_atual, x_proximo)) + (max(y_atual, y_proximo) - min(y_atual, y_proximo))
+        resultado = str((max(x_atual, x_proximo) - min(x_atual, x_proximo)) + (max(y_atual, y_proximo) - min(y_atual, y_proximo)))
         lista2.append(resultado)
     
 

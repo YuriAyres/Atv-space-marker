@@ -19,6 +19,8 @@ pygame.mixer.music.play(-1)
 estrelas = {}
 medias = []
 dist_marcs = []
+marc = {}
+chaves_percorridas = []
 nome_arquivo = "estrelas.pkl"
 start_pos = None
 white = (255, 255, 255)
@@ -55,11 +57,13 @@ while running:
                 text = font.render(item, True, white)
                 pygame.draw.circle(tela, white, pos, 3.5)
                 limite = analisar_tupla(pos,852,550)
-                if limite == False:
-                    tela.blit(text, (pos))
-                else:
-                    pos2 = sutrair_tupla(pos)
-                    tela.blit(text, (pos2))
+                if key not in chaves_percorridas:
+                    chaves_percorridas.append(key)
+                    if limite == False:
+                        tela.blit(text, (pos))
+                    else:
+                        pos2 = sutrair_tupla(pos)
+                        tela.blit(text, (pos2))
                 medias_tuplas(estrelas,medias,dist_marcs)
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_F10:
              with open(nome_arquivo, 'wb') as arquivo:
@@ -72,11 +76,13 @@ while running:
                         text = font.render(key, True, white)
                         pygame.draw.circle(tela, white, value, 3.5)
                         limite = analisar_tupla(value,852,550)
-                        if limite == False:
-                            tela.blit(text, (value))
-                        else:
-                            pos2 = sutrair_tupla(value)
-                            tela.blit(text, (pos2))
+                        if key not in chaves_percorridas:
+                            chaves_percorridas.append(key)
+                            if limite == False:
+                                tela.blit(text, (value))
+                            else:
+                                pos2 = sutrair_tupla(value)
+                                tela.blit(text, (pos2))
                         if start_pos is None:
                             start_pos = value
                         else:
@@ -84,16 +90,29 @@ while running:
                             pygame.draw.line(tela, white, start_pos, end_pos , 1)
                             start_pos = value
                     medias_tuplas(estrelas,medias,dist_marcs)
-                    print(dist_marcs)
-                    print(medias)
             except:
                 messagebox.showinfo("Erro", "Não existem marcações salvas!")               
                
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_F12:
              with open(nome_arquivo, 'w') as arquivo:
                 pass
-            
- 
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_F11 or event.type == pygame.MOUSEBUTTONUP:
+            for dist in dist_marcs:
+                marc[dist] = None
+            for media in medias:
+                marc[dist] = media
+            chaves = marc.keys()
+            for i, valor in enumerate(medias):
+                if i < len(chaves):
+                    chave = list(chaves)[i]
+                marc[chave] = valor
+            for key, value in marc.items():
+                if key not in chaves_percorridas:
+                    chaves_percorridas.append(key)
+                    text = font.render(key, True, white)
+                    tela.blit(text, (value))
+
+        
 
        
         
